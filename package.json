@@ -1,0 +1,20 @@
+{
+  "name": "04---clean-ddd",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start:dev": "tsx watch src/server.ts",
+    "start": "node build/server.js",
+    "build": "tsup src --out-dir build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "20.14.12",
+    "tsup": "8.2.3",
+    "tsx": "4.16.2",
+    "typescript": "5.5.4"
+  }
+}
