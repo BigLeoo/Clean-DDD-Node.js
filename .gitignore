@@ -1,0 +1,14 @@
+#Compiled files
+build
+
+# Node modules
+node_modules
+
+# Environment variables
+.env
+
+# Coverage directory used by test tools 
+coverage
+
+# MacOS files
+.DS_Store

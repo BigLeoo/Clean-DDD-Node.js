@@ -1,20 +1,32 @@
 {
   "name": "04---clean-ddd",
   "version": "1.0.0",
+  "engines": {
+    "node": ">= 18"
+  },
   "description": "",
   "main": "index.js",
   "scripts": {
     "start:dev": "tsx watch src/server.ts",
     "start": "node build/server.js",
-    "build": "tsup src --out-dir build"
+    "build": "tsup src --out-dir build",
+    "test:unit": "vitest run --dir src/domain",
+    "test:unit:watch": "vitest --dir src/domain"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@rocketseat/eslint-config": "2.2.2",
     "@types/node": "20.14.12",
+    "eslint": "8.57.0",
     "tsup": "8.2.3",
     "tsx": "4.16.2",
-    "typescript": "5.5.4"
+    "typescript": "5.5.4",
+    "vite-tsconfig-paths": "4.3.2",
+    "vitest": "2.0.4"
+  },
+  "dependencies": {
+    "dayjs": "1.11.12"
   }
 }
