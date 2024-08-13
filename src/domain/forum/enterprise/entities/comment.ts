@@ -1,22 +1,19 @@
 import { Entity } from '@/core/entities/entity'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
-import { Optional } from '@/core/types/optional'
 
-export interface AnswerProps {
+export interface CommentProps {
   authorId: UniqueEntityID
-  questionId: UniqueEntityID
   content: string
   createdAt: Date
   updatedAt?: Date
 }
 
-export class Answer extends Entity<AnswerProps> {
+// Aqui eu posso receber Props que são subtipos de CommentProps e sao passados para as props da classe Entity
+export abstract class Comment<
+  Props extends CommentProps,
+> extends Entity<Props> {
   get authorId() {
     return this.props.authorId
-  }
-
-  get questionId() {
-    return this.props.questionId
   }
 
   get content() {
@@ -42,20 +39,5 @@ export class Answer extends Entity<AnswerProps> {
   set content(content: string) {
     this.props.content = content
     this.touch()
-  }
-
-  static create(
-    props: Optional<AnswerProps, 'createdAt'>,
-    id?: UniqueEntityID,
-  ) {
-    const answer = new Answer(
-      {
-        ...props,
-        createdAt: props.createdAt ?? new Date(),
-      },
-      id,
-    )
-
-    return answer
   }
 }

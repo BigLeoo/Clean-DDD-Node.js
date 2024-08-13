@@ -3,15 +3,15 @@ import { randomUUID } from 'crypto'
 export class UniqueEntityID {
   private value: string
 
-  toSting() {
+  constructor(value?: string) {
+    this.value = value ?? randomUUID()
+  }
+
+  toString() {
     return this.value
   }
 
   toValue() {
     return this.value
-  }
-
-  constructor(value?: string) {
-    this.value = value ?? randomUUID()
   }
 }
