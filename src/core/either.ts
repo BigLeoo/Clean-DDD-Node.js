@@ -1,4 +1,4 @@
-// Error
+// Error -> Left
 export class Left<L, R> {
   readonly value: L
 
@@ -15,7 +15,7 @@ export class Left<L, R> {
   }
 }
 
-// Success
+// Success -> Right
 export class Right<L, R> {
   readonly value: R
 

@@ -4,14 +4,20 @@ import { CommentOnQuestionUseCase } from './comment-on-question'
 import { InMemoryQuestionCommentsRepository } from 'test/repositories/in-memory-question-comments-repository'
 import { InMemoryQuestionRepository } from 'test/repositories/in-memory-question-repository'
 import { makeQuestion } from 'test/factories/make-question'
+import { InMemoryQuestionAttachmentsRepository } from 'test/repositories/in-memory-question-attachments-repository'
 
 let sut: CommentOnQuestionUseCase
 let inMemoryQuestionsCommentsRepository: InMemoryQuestionCommentsRepository
 let inMemoryQuestionsRepository: InMemoryQuestionRepository
+let inMemoryQuestionAttachmentsRepository: InMemoryQuestionAttachmentsRepository
 
 describe('Comment On Question Use Case', () => {
   beforeEach(() => {
-    inMemoryQuestionsRepository = new InMemoryQuestionRepository()
+    inMemoryQuestionAttachmentsRepository =
+      new InMemoryQuestionAttachmentsRepository()
+    inMemoryQuestionsRepository = new InMemoryQuestionRepository(
+      inMemoryQuestionAttachmentsRepository,
+    )
     inMemoryQuestionsCommentsRepository =
       new InMemoryQuestionCommentsRepository()
     sut = new CommentOnQuestionUseCase(
@@ -25,16 +31,21 @@ describe('Comment On Question Use Case', () => {
 
     await inMemoryQuestionsRepository.create(newQuestion)
 
-    const { questionComment } = await sut.execute({
+    const result = await sut.execute({
       authorId: 'author-1',
       questionId: newQuestion.id.toString(),
       content: 'comment on question',
     })
 
-    expect(questionComment.id).toBeInstanceOf(UniqueEntityID)
-    expect(questionComment.content).toEqual('comment on question')
-    expect(inMemoryQuestionsCommentsRepository.items[0].content).toEqual(
-      'comment on question',
-    )
+    expect(result.isRight()).toBeTruthy()
+    if (result.isRight()) {
+      expect(result.value.questionComment.id).toBeInstanceOf(UniqueEntityID)
+      expect(result.value.questionComment.content).toEqual(
+        'comment on question',
+      )
+      expect(inMemoryQuestionsCommentsRepository.items[0].content).toEqual(
+        'comment on question',
+      )
+    }
   })
 })
