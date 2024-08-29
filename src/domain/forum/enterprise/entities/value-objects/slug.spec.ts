@@ -1,6 +1,5 @@
-import { expect, it } from 'vitest'
+import { expect, it, describe } from 'vitest'
 import { Slug } from './slug'
-import { describe } from 'node:test'
 
 describe('Value Object Slug', () => {
   it('should be able to create a new slug from text', () => {

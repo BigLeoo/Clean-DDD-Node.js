@@ -11,12 +11,14 @@
     "start": "node build/server.js",
     "build": "tsup src --out-dir build",
     "test:unit": "vitest run --dir src/domain",
-    "test:unit:watch": "vitest --dir src/domain"
+    "test:unit:watch": "vitest --dir src/domain",
+    "test:unit:watch:chore": "vitest --dir src/core"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@faker-js/faker": "8.4.1",
     "@rocketseat/eslint-config": "2.2.2",
     "@types/node": "20.14.12",
     "eslint": "8.57.0",
