@@ -8,7 +8,7 @@ import { QuestionBestAnswerChosenEvent } from '@/domain/forum/enterprise/events/
 export class OnQuestionBestAnswerChosen implements EventHandler {
   constructor(
     private answersRepository: AnswerRepository,
-    private sendNotification: SendNotificationUseCase,
+    private sendNotificationUseCase: SendNotificationUseCase,
   ) {
     this.setupSubscriptions()
   }
@@ -29,7 +29,7 @@ export class OnQuestionBestAnswerChosen implements EventHandler {
     )
 
     if (answer) {
-      await this.sendNotification.execute({
+      await this.sendNotificationUseCase.execute({
         recipientId: answer.authorId.toString(),
         title: `Sua resposta foi escolhida!`,
         content: `A resposta que você enviou em "${question.title.substring(0, 20).concat('...')} foi escolhida pelo autor!`,
