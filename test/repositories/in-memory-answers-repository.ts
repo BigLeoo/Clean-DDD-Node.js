@@ -2,6 +2,7 @@ import { PaginationParams } from '@/core/repositories/pagination-params'
 import { AnswerRepository } from '@/domain/forum/application/repositories/answer-repository'
 import { Answer } from '@/domain/forum/enterprise/entities/answer'
 import { AnswerAttachmentsRepository } from '@/domain/forum/application/repositories/answer-attachments-repository'
+import { DomainEvents } from '@/core/events/domain-events'
 
 export class InMemoryAnswersRepository implements AnswerRepository {
   constructor(
@@ -14,6 +15,8 @@ export class InMemoryAnswersRepository implements AnswerRepository {
 
   async create(answer: Answer): Promise<void> {
     this.items.push(answer)
+
+    DomainEvents.dispatchEventsForAggregate(answer.id)
   }
 
   async delete(id: string): Promise<void> {
